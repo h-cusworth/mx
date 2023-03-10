@@ -13685,7 +13685,7 @@ def add_lib_prefix(name):
     """
     Adds the platform specific library prefix to a name
     """
-    if is_darwin() or is_linux() or is_openbsd() or is_sunos():
+    if is_darwin() or is_linux() or is_openbsd() or is_freebsd() or is_sunos():
         return 'lib' + name
     return name
 
@@ -13710,7 +13710,7 @@ def add_static_lib_suffix(name):
     """
     if is_windows():
         return name + '.lib'
-    if is_linux() or is_openbsd() or is_sunos() or is_darwin():
+    if is_linux() or is_openbsd() or is_freebsd() or is_sunos() or is_darwin():
         return name + '.a'
     return name
 
@@ -13720,7 +13720,7 @@ def add_debug_lib_suffix(name):
     """
     if is_windows():
         return name + '.pdb'
-    if is_linux() or is_openbsd() or is_sunos():
+    if is_linux() or is_openbsd() or is_freebsd() or is_sunos():
         return name + '.debuginfo'
     if is_darwin():
         return name + '.dylib.dSYM'

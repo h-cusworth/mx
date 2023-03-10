@@ -651,6 +651,12 @@ suite = {
             "digest": "sha512:6004140d92e86afbb17b49c49037ccd0786ce238f340f7d0e62b4b0c29ed0d6ad0bab11feda2094ae849c387d70d63504393714ed0a1f4d3a1f155af7a4f1ba3"
           }
         },
+        "freebsd" : {
+          "aarch64" : {
+            "urls" : ["https://lafo.ssw.uni-linz.ac.at/pub/graal-external-deps/ninja-{version}-linux-aarch64.zip"],
+            "digest": "sha512:6592d1c6397a3968df5d473c11c29de040df938a06ac5351f09bdea10fe78a4d171e9dd8be68e62cba30d01b72d575f55b29376b46812e7c4c168df34dbbf76f"
+          }
+        },
         "solaris" : {
           "<others>" : {
             "optional" : True

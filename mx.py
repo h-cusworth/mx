@@ -4071,6 +4071,10 @@ def is_linux():
     return sys.platform.startswith('linux')
 
 
+def is_freebsd():
+    return sys.platform.startswith('freebsd')
+
+
 def is_openbsd():
     return sys.platform.startswith('openbsd')
 
@@ -4095,6 +4099,8 @@ def get_os():
         return 'darwin'
     elif is_linux():
         return 'linux'
+    elif is_freebsd():
+        return 'freebsd'
     elif is_openbsd():
         return 'openbsd'
     elif is_sunos():

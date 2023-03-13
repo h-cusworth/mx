@@ -886,6 +886,11 @@ suite = {
                 "ignore": "mac is currently not supported",
             },
         },
+        "freebsd": {
+          "aarch64": {
+            "cflags" : ["-fPIC", "-Wall", "-Werror", "-O", "-g", "-DJVMTI_ASM_ARCH=aarch64", "-std=gnu99", "-D__linux__"],
+          },
+        },
         "windows": {
             "<others>": {
                 "ignore": "windows is not supported",
@@ -951,6 +956,14 @@ suite = {
             },
             "asm_requires_cpp": True,
           },
+        },
+        "freebsd": {
+          "aarch64": {
+            "layout": {
+              "toolchain.ninja": "file:ninja-toolchains/llvm.ninja"
+            },
+            "asm_requires_cpp": True,
+          }
         },
       },
       "maven": False,

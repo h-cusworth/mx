@@ -888,7 +888,7 @@ suite = {
         },
         "freebsd": {
           "aarch64": {
-            "cflags" : ["-fPIC", "-Wall", "-Werror", "-O", "-g", "-DJVMTI_ASM_ARCH=aarch64", "-std=gnu99", "-D__linux__"],
+            "cflags" : ["-fPIC", "-Wall", "-Werror", "-O", "-g", "-DJVMTI_ASM_ARCH=aarch64", "-std=gnu99"],
           },
         },
         "windows": {

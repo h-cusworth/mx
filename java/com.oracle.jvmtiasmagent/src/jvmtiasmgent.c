@@ -277,7 +277,7 @@ static void write_string_or_null(const char* str) {
 // Timestamps are used to match events between multiple data sources so it's important to choose a
 // clock that can match with whatever clock the system profiler uses.
 
-#if defined(__linux__)
+#if defined(__linux__) || defined(__FreeBSD__)
 // On linux, timestamps in the file use the CLOCK_MONOTONIC which is a non adjustable clock.
 clockid_t timestamp_clock = CLOCK_MONOTONIC;
 #elif defined(__APPLE__) && defined(__MACH__) // Apple OSX and iOS (Darwin)

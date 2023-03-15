@@ -1022,6 +1022,7 @@ def make_java_module(dist, jdk, archive, javac_daemon=None, alt_module_info_name
                             # attribute of module-info.class.
                             target_os = mx.get_os()
                             target_os = 'macos' if target_os == 'darwin' else target_os
+                            target_os = 'bsd' if target_os == 'freebsd' else target_os
                             target_arch = mx.get_arch()
                             jmod_args.append(f'--target-platform={target_os}-{target_arch}')
                         if exists(jdk_jmod):

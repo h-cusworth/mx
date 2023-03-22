@@ -13698,7 +13698,7 @@ def add_lib_suffix(name):
     """
     if is_windows():
         return name + '.dll'
-    if is_linux() or is_openbsd() or is_sunos():
+    if is_linux() or is_freebsd() or is_openbsd() or is_sunos():
         return name + '.so'
     if is_darwin():
         return name + '.dylib'

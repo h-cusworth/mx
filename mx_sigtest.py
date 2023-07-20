@@ -66,7 +66,7 @@ def _sigtest_generate(args, suite=None, projects=None):
         sigtestResults = p.dir + os.sep + 'snapshot.sigtest'
         jdk = mx.get_jdk(javaCompliance)
         cp = mx.classpath(p, jdk=jdk)
-        cmd = ['-cp', mx._cygpathU2W(sigtestlib), 'com.sun.tdk.signaturetest.Setup',
+        cmd = ['-Xint', '-cp', mx._cygpathU2W(sigtestlib), 'com.sun.tdk.signaturetest.Setup',
             '-BootCP',
             '-Static', '-FileName', sigtestResults,
             '-ClassPath', cp,

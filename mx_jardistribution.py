@@ -376,7 +376,7 @@ class JARDistribution(mx.Distribution, mx.ClasspathDependency):
         # add mapping files
         assert all((os.path.isabs(f) for f in self.stripMapping))
 
-        proguard = ['-cp', _get_proguard_cp(self.suite), 'proguard.ProGuard']
+        proguard = ['-Xint', '-cp', _get_proguard_cp(self.suite), 'proguard.ProGuard']
 
         prefix = [
             '-dontusemixedcaseclassnames', # https://sourceforge.net/p/proguard/bugs/762/

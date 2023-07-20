@@ -424,7 +424,7 @@ def get_library_as_module(dep, jdk):
     if not exists(cache) or mx.TimeStampFile(fullpath).isNewerThan(cache) or mx.TimeStampFile(__file__).isNewerThan(cache):
         out = mx.LinesOutputCapture()
         err = mx.LinesOutputCapture()
-        rc = mx.run([jdk.java, '--module-path', fullpath, '--describe-module', moduleName], out=out, err=err, nonZeroIsFatal=False)
+        rc = mx.run([jdk.java, '-Xint', '--module-path', fullpath, '--describe-module', moduleName], out=out, err=err, nonZeroIsFatal=False)
         lines = out.lines
         if rc != 0:
             out_lines = "\n".join(out.lines)
@@ -951,7 +951,7 @@ def make_java_module(dist, jdk, archive, javac_daemon=None, alt_module_info_name
                         """
                         return '"' + p.replace('\\', '\\\\').replace(' ', '\\ ')  + '"'
 
-                    javac_args = ['-d', safe_path_arg(dest_dir)]
+                    javac_args = ['-J-Xint', '-d', safe_path_arg(dest_dir)]
                     modulepath_jars = [m.jarpath for m in modulepath if m.jarpath]
                     # TODO we should rather use the right JDK
                     javac_args += ['-target', version if version != 'common' else '9', '-source', version if version != 'common' else '9']
@@ -1016,7 +1016,7 @@ def make_java_module(dist, jdk, archive, javac_daemon=None, alt_module_info_name
                             os.remove(jmod_path)
 
                         jdk_jmod = join(default_jdk.home, 'jmods', basename(jmod_path))
-                        jmod_args = ['create', '--class-path=' + dest_dir]
+                        jmod_args = ['-J-Xint' , 'create', '--class-path=' + dest_dir]
                         if not dist.is_stripped():
                             # There is a ProGuard bug that corrupts the ModuleTarget
                             # attribute of module-info.class.

@@ -14117,7 +14117,7 @@ class JDKConfig(Comparable):
         """
         if self._knownJavacLints is None:
             try:
-                out = _check_output_str([self.javac, '-X'], stderr=subprocess.STDOUT)
+                out = _check_output_str([self.javac, '-J-Xint' ,'-X'], stderr=subprocess.STDOUT)
             except subprocess.CalledProcessError as e:
                 if e.output:
                     log(e.output)

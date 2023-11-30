@@ -634,6 +634,10 @@ class DefaultNativeProject(NinjaProject):
                 windows=['-MD'],
             ).get(mx.get_os(), ['-fPIC'])
 
+        if mx.is_morello() and self.name != "com.oracle.jvmtiasmagent":
+            default_cflags += ['-O0','-Wshorten-cap-to-int','-Wcheri','-march=morello','-mabi=purecap'
+                                ,'-Xclang','-morello-vararg=new','-mcpu=rainier']
+            
         if mx.is_linux() or mx.is_darwin():
             # Do not leak host paths via dwarf debuginfo
             def add_debug_prefix(prefix_dir):
@@ -656,6 +660,8 @@ class DefaultNativeProject(NinjaProject):
                 darwin=['-dynamiclib', '-undefined', 'dynamic_lookup'],
                 windows=['-dll'],
             ).get(mx.get_os(), ['-shared', '-fPIC'])
+        if mx.is_morello() and self.name != "com.oracle.jvmtiasmagent":
+            default_ldflags += ['-fsanitize=cheri','-Wshorten-cap-to-int','-mabi=purecap','-fuse-ld=lld']
 
         return default_ldflags + super(DefaultNativeProject, self).ldflags
 

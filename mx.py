@@ -577,6 +577,7 @@ environment variables:
         self.add_argument('-V', action='store_true', dest='very_verbose', help='enable very verbose output')
         self.add_argument('--no-warning', action='store_false', dest='warn', help='disable warning messages')
         self.add_argument('--quiet', action='store_true', help='disable log messages')
+        self.add_argument('--morello', action='store_true', dest='morello', help='set if running on morello')
         self.add_argument('-y', action='store_const', const='y', dest='answer', help='answer \'y\' to all questions asked')
         self.add_argument('-n', action='store_const', const='n', dest='answer', help='answer \'n\' to all questions asked')
         self.add_argument('-p', '--primary-suite-path', help='set the primary suite directory', metavar='<path>')
@@ -13110,6 +13111,9 @@ _probed_JDKs = {}
 
 def is_quiet():
     return _opts.quiet
+
+def is_morello():
+    return _opts.morello
 
 def _probe_JDK(home):
     res = _probed_JDKs.get(home)

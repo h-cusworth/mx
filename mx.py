@@ -13913,13 +13913,13 @@ class JDKConfig(Comparable):
 
         # Prepend the -d64 VM option only if the java command supports it
         try:
-            output = _check_output_str([self.java, '-d64', '-version'], stderr=subprocess.STDOUT)
+            output = _check_output_str([self.java, '-d64','-Xint','-version'], stderr=subprocess.STDOUT)
             self.java_args = ['-d64'] + self.java_args
         except OSError as e:
             raise JDKConfigException(f'{e.errno}: {e.strerror}')
         except subprocess.CalledProcessError as e:
             try:
-                output = _check_output_str([self.java, '-version'], stderr=subprocess.STDOUT)
+                output = _check_output_str([self.java, '-Xint','-version'], stderr=subprocess.STDOUT)
             except subprocess.CalledProcessError as e:
                 raise JDKConfigException(f'{e.returncode}: {e.output}')
 
@@ -13980,7 +13980,7 @@ class JDKConfig(Comparable):
                 while remaining_attempts != 0:
                     remaining_attempts -= 1
                     try:
-                        self._bootclasspath, self._extdirs, self._endorseddirs = [x if x != 'null' else None for x in _check_output_str([self.java, '-cp', _cygpathU2W(binDir), 'ClasspathDump'], stderr=subprocess.PIPE).split('|')]
+                        self._bootclasspath, self._extdirs, self._endorseddirs = [x if x != 'null' else None for x in _check_output_str([self.java, '-Xint','-cp', _cygpathU2W(binDir), 'ClasspathDump'], stderr=subprocess.PIPE).split('|')]
                     except subprocess.CalledProcessError as e:
                         if remaining_attempts == 0:
                             abort(f'{str(e)}{os.linesep}Command output:{e.output}{os.linesep}')
@@ -14054,7 +14054,7 @@ class JDKConfig(Comparable):
         Similar to `OutputCapturingJavaVm.generate_java_command` such that generated commands can be
         retrieved without being executed.
         """
-        return [self.java] + self.processArgs(args, addDefaultArgs=addDefaultArgs)
+        return [self.java, '-Xint'] + self.processArgs(args, addDefaultArgs=addDefaultArgs)
 
     def bootclasspath(self, filtered=True):
         """
@@ -14187,7 +14187,7 @@ class JDKConfig(Comparable):
                 addExportsArg = '--add-exports=java.base/jdk.internal.module=ALL-UNNAMED'
                 _, binDir = _compile_mx_class('ListModules', jdk=self, extraJavacArgs=[addExportsArg])
                 out = LinesOutputCapture()
-                run([self.java, '-cp', _cygpathU2W(binDir), addExportsArg, 'ListModules'], out=out)
+                run([self.java, '-Xint', '-cp', _cygpathU2W(binDir), addExportsArg, 'ListModules'], out=out)
                 lines = out.lines
                 if isJDKImage:
                     for dst, content in [(cache_source, self.home), (cache, '\n'.join(lines))]:
